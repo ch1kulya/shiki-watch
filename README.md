@@ -10,6 +10,8 @@ adds the ability to watch on the Shikimori. Please create an issue if you encoun
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-install-FFAA33?style=flat&logo=tampermonkey&logoColor=white)](https://raw.github.com/ch1kulya/shiki-watch/main/manifest.user.js)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ch1kulya/shiki-watch/main)
 
+![screenshot](./screenshot.png)
+
 </div>
 
 #### Contributing is encouraged 🤗
