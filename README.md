@@ -2,7 +2,7 @@
 
 ## Shiki Watch
 
-adds the ability to watch on the Shikimori. This fork is maintained. Please create an issue if you encounter any problems.
+adds the ability to watch on the Shikimori. Please create an issue if you encounter any problems.
 
 ![GitHub License](https://img.shields.io/github/license/ch1kulya/shiki-watch)
 [![Chrome](https://img.shields.io/badge/Chrome-soon-4285F4?style=flat&logo=google-chrome&logoColor=white)]()
