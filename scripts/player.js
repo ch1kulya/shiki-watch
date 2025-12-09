@@ -18,8 +18,8 @@ class Player {
 
     const animeData = Shikimori.getAnimeInfo(animeId);
 
-    if (animeData.status === "anons") {
-      console.debug("Anime is anons, skipping player.");
+    if (animeData.status === "anons" || animeData.rating === "rx") {
+      console.debug("Anime is anons or rx, skipping player.");
       return;
     }
 
