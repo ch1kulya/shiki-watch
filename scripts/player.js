@@ -17,7 +17,7 @@ class Player {
     const animeId = match.groups.id;
     const animeData = Shikimori.getAnimeInfo(animeId);
 
-    if (animeData.status === "anons" || animeData.episodes_aired === 0) {
+    if (animeData.status === "anons") {
       console.debug("Anime is not aired yet, player skipped.");
       return;
     }
