@@ -5,7 +5,7 @@
 // @icon https://raw.github.com/ch1kulya/shiki-watch/main/icons/logo128.png
 // @author ch1kulya
 // @homepageURL https://github.com/ch1kulya/shiki-watch
-// @version 1.0
+// @version 1.1
 // @copyright 2025, ch1kulya
 // @license GPL-3.0-or-later; https://www.gnu.org/licenses/gpl-3.0.txt
 
