@@ -15,10 +15,11 @@ class Player {
     document.querySelector(".block-with-player")?.remove();
 
     const animeId = match.groups.id;
+
     const animeData = Shikimori.getAnimeInfo(animeId);
 
     if (animeData.status === "anons") {
-      console.debug("Anime is not aired yet, player skipped.");
+      console.debug("Anime is anons, skipping player.");
       return;
     }
 
@@ -33,9 +34,11 @@ class Player {
     const headline = this.#createHeadline();
     const block = this.#createBlock(headline);
     const beforeForPlayer = document.getElementsByClassName("b-db_entry")[0];
-    this.#insertAfter(block, beforeForPlayer);
 
-    Kodik.precreateKodikPlayer(animeId);
+    if (beforeForPlayer) {
+      this.#insertAfter(block, beforeForPlayer);
+      Kodik.precreateKodikPlayer(animeId);
+    }
   }
 
   static #createHeadline() {
@@ -80,15 +83,34 @@ class Kodik {
 }
 
 class Shikimori {
+  static #cache = new Map();
+
   static isAnimePage(location) {
     return location.pathname.match(/\/animes\/[a-z]?(?<id>\d+)-[a-z0-9-]+$/);
   }
 
   static getAnimeInfo(animeId) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `${location.origin}/api/animes/${animeId}`, false);
-    req.send();
-    return JSON.parse(req.response || "{}");
+    if (this.#cache.has(animeId)) {
+      return this.#cache.get(animeId);
+    }
+
+    try {
+      const req = new XMLHttpRequest();
+      req.open("GET", `${location.origin}/api/animes/${animeId}`, false);
+      req.send();
+
+      if (req.status === 200) {
+        const data = JSON.parse(req.response || "{}");
+        this.#cache.set(animeId, data);
+        return data;
+      } else {
+        console.warn(`Shiki-Watch: API Error ${req.status}`);
+        return {};
+      }
+    } catch (e) {
+      console.error("Shiki-Watch: Failed to fetch anime info", e);
+      return {};
+    }
   }
 
   static getWatchingEpisode(animeId) {
