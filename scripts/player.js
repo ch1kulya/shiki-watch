@@ -14,6 +14,14 @@ class Player {
 
     document.querySelector(".block-with-player")?.remove();
 
+    const animeId = match.groups.id;
+    const animeData = Shikimori.getAnimeInfo(animeId);
+
+    if (animeData.status === "anons" || animeData.episodes_aired === 0) {
+      console.debug("Anime is not aired yet, player skipped.");
+      return;
+    }
+
     if (
       document
         .querySelectorAll(".subheadline")[0]
@@ -22,7 +30,6 @@ class Player {
       this.lang = "eng";
     }
 
-    const animeId = match.groups.id;
     const headline = this.#createHeadline();
     const block = this.#createBlock(headline);
     const beforeForPlayer = document.getElementsByClassName("b-db_entry")[0];
@@ -77,7 +84,7 @@ class Shikimori {
     return location.pathname.match(/\/animes\/[a-z]?(?<id>\d+)-[a-z0-9-]+$/);
   }
 
-  static #fetchAnime(animeId) {
+  static getAnimeInfo(animeId) {
     const req = new XMLHttpRequest();
     req.open("GET", `${location.origin}/api/animes/${animeId}`, false);
     req.send();
@@ -85,12 +92,12 @@ class Shikimori {
   }
 
   static getWatchingEpisode(animeId) {
-    const response = this.#fetchAnime(animeId);
+    const response = this.getAnimeInfo(animeId);
     return (response.user_rate?.episodes || 0) + 1;
   }
 
   static getNameOfAnime(animeId) {
-    const response = this.#fetchAnime(animeId);
+    const response = this.getAnimeInfo(animeId);
     return response.name || response.english?.[0] || response.russian || "";
   }
 }
