@@ -1,27 +1,45 @@
-name: Publish to Firefox Add-ons
-
+name: Publish to Browser Stores
 on:
   workflow_dispatch:
 
-jobs:
-  build-and-sign:
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: "24"
-
       - name: Install web-ext
         run: npm install --global web-ext
-
       - name: Build Extension
         run: web-ext build --overwrite-dest
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-build
+          path: web-ext-artifacts/*.zip
 
+  publish-firefox:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Install web-ext
+        run: npm install --global web-ext
       - name: Sign and Publish
         run: |
           web-ext sign --channel=listed \
@@ -31,9 +49,27 @@ jobs:
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-
-      - name: Upload Artifact
+      - name: Upload Signed Extension
         uses: actions/upload-artifact@v4
         with:
-          name: signed-extension
+          name: signed-firefox-extension
           path: web-ext-artifacts/*.xpi
+
+  publish-chrome:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: extension-build
+      - name: Publish to Chrome Web Store
+        uses: mnao305/chrome-extension-upload@v5
+        with:
+          file-path: "*.zip"
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: true

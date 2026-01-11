@@ -5,7 +5,7 @@
   "description": "The add-on adds the ability to watch on the Shikimori",
 
   "icons": {
-    "128": "./icons/logo128.png"
+    "128": "icons/logo128.png"
   },
 
   "browser_specific_settings": {
