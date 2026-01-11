@@ -65,7 +65,7 @@ jobs:
         with:
           name: extension-build
       - name: Publish to Chrome Web Store
-        uses: mnao305/chrome-extension-upload@v5
+        uses: mnao305/chrome-extension-upload@v5.0.0
         with:
           file-path: "*.zip"
           extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
