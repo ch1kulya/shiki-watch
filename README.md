@@ -14,4 +14,5 @@ adds the ability to watch on the Shikimori. Please create an issue if you encoun
 
 </div>
 
+Forked from [Malanavi/Watch-and-download-on-Shikimori](https://github.com/Malanavi/Watch-and-download-on-Shikimori).
 #### Contributing is encouraged 🤗
