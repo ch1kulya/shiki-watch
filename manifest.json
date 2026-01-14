@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Shiki Watch",
-  "version": "1.1",
+  "version": "1.2",
   "description": "The add-on adds the ability to watch on the Shikimori",
 
   "icons": {
