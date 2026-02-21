@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Shiki Watch",
-  "version": "1.3",
+  "version": "1.4",
   "description": "The add-on adds the ability to watch on the Shikimori",
 
   "icons": {
@@ -18,11 +18,19 @@
     }
   },
 
-  "host_permissions": ["*://shikimori.one/*", "*://shiki.one/*"],
+  "host_permissions": [
+    "*://shikimori.one/*",
+    "*://shiki.one/*",
+    "*://shikimori.io/*"
+  ],
 
   "content_scripts": [
     {
-      "matches": ["*://shikimori.one/*", "*://shiki.one/*"],
+      "matches": [
+        "*://shikimori.one/*",
+        "*://shiki.one/*",
+        "*://shikimori.io/*"
+      ],
       "js": ["./scripts/player.js"],
       "run_at": "document_start"
     }
