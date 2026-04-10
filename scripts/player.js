@@ -71,7 +71,7 @@ class Kodik {
     const kodikPlayer = document.createElement("iframe");
     kodikPlayer.width = "100%";
     kodikPlayer.allowFullscreen = true;
-    kodikPlayer.src = `//kodik.cc/find-player?shikimoriID=${animeId}&episode=${Shikimori.getWatchingEpisode(animeId)}`;
+    kodikPlayer.src = `//kodikplayer.com/find-player?shikimoriID=${animeId}&episode=${Shikimori.getWatchingEpisode(animeId)}`;
     kodikPlayer.className = "iframe-player";
 
     new ResizeObserver(() => {
